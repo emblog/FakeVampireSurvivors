@@ -12,6 +12,16 @@ namespace FVS.Defines
 		Game
 	}
 
+	public struct PlayerData
+	{
+		public int HP;
+		public int Speed;
+		public int AttackDamage;
+		public float AttakSpeed;
 
-    
+		public bool IsValid()
+		{
+			return (HP > 0) && (Speed > 0) &&(AttackDamage > 0) && (AttakSpeed > 0);
+		}
+	}
 }

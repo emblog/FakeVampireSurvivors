@@ -17,6 +17,14 @@ public class LobbyUI : MonoBehaviour
 
 	public void OnClick_StartButton()
 	{
+		PlayerData temp;
+
+		temp.Speed = 5;
+		temp.HP= 10;
+		temp.AttakSpeed = 1.5f;
+		temp.AttackDamage = 1;
+
+		FVSSceneManager.Ins.SetInGameData(ref temp);
 		FVSSceneManager.Ins.ChangeScene(EScene.Game);
 	}
 
