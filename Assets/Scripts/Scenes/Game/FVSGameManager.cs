@@ -23,6 +23,20 @@ public class FVSGameManager : MonoBehaviour
         instance = this;
 
         data = FVSSceneManager.Ins.GetInGameData();
+
+        // todo : 어느정도 작업 되면 삭제 필수
+        // 게임 씬에서 시작할 때 사용할 더미 데이터
+        if (data.IsValid() == false)
+		{
+            PlayerData temp;
+
+            temp.Speed = 5;
+            temp.HP = 10;
+            temp.AttakSpeed = 1.5f;
+            temp.AttackDamage = 1;
+
+            data.playerData = temp;
+        }
     }
 
     public PlayerData GetPlayerData()

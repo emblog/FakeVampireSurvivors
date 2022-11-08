@@ -17,6 +17,7 @@ public class LobbyUI : MonoBehaviour
 
 	public void OnClick_StartButton()
 	{
+		// todo : 임시 데이터
 		PlayerData temp;
 
 		temp.Speed = 5;

@@ -9,15 +9,16 @@ public class PlayerController : MonoBehaviour
 {
 	#region INSPECTOR
 
-	public Sprite Image;
+	public Sprite m_Image;
+    public Camera m_Camera;
 
     #endregion
 
-    PlayerData Data = new PlayerData();
+    PlayerData m_Data = new PlayerData();
 
 	private void Start()
 	{
-		Data = FVSGameManager.Ins.GetPlayerData();
+        m_Data = FVSGameManager.Ins.GetPlayerData();
 	}
 
 	// Update is called once per frame
@@ -46,14 +47,18 @@ public class PlayerController : MonoBehaviour
             moveX -= 1;
         }
 
-        moveX *= Data.Speed;
-        moveY *= Data.Speed;
+        if (moveX != 0 || moveY != 0)
+		{
+            moveX *= m_Data.Speed;
+            moveY *= m_Data.Speed;
 
-        var pos = transform.position;
+            Vector3 move = new Vector3(moveX* Time.deltaTime, moveY* Time.deltaTime, 0);
+            transform.position += move;
 
-        pos.x += moveX * Time.deltaTime;
-        pos.y += moveY * Time.deltaTime;
-
-        transform.position = pos;
+            if (m_Camera != null)
+			{
+                m_Camera.transform.position += move;
+            }
+        }
     }
 }
