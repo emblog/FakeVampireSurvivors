@@ -21,10 +21,10 @@ public class FVSSceneManager : MonoBehaviour
 		DontDestroyOnLoad(this);
 	}
 
-	public void SetInGameData(ref PlayerData a_PlayerData)
+	public void SetInGameData(ref PlayerData a_stPlayerData, ref EquipmentData a_stEquipmentData)
 	{
-		m_passingData.playerData = a_PlayerData;
-
+		m_passingData.stPlayerData = a_stPlayerData;
+		m_passingData.stEquipmentData = a_stEquipmentData;
 
 		Debug.Assert(m_passingData.IsValid(), "not valid stage passing data");
 	}
@@ -39,5 +39,4 @@ public class FVSSceneManager : MonoBehaviour
 	{
 		SceneManager.LoadScene(a_Scene.ToString());
 	}
-
 }

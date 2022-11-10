@@ -24,8 +24,13 @@ public class LobbyUI : MonoBehaviour
 		temp.HP= 10;
 		temp.AttakSpeed = 1.5f;
 		temp.AttackDamage = 1;
+		
+		EquipmentData temp2;
 
-		FVSSceneManager.Ins.SetInGameData(ref temp);
+		temp2.eSkillID = ESkillID.Sword;
+		temp2.nBaseDamage = 1;
+
+		FVSSceneManager.Ins.SetInGameData(ref temp, ref temp2);
 		FVSSceneManager.Ins.ChangeScene(EScene.Game);
 	}
 

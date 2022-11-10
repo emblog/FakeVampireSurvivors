@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.U2D;
 
 using FVS.Defines;
+using FVS.GameDefines;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,13 +16,20 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     PlayerData m_Data = new PlayerData();
+    SkillData m_stSkillData = new SkillData();
 
 	private void Start()
 	{
         m_Data = FVSGameManager.Ins.GetPlayerData();
-	}
 
-	// Update is called once per frame
+        var data = FVSGameManager.Ins.GetEquipmentData();
+
+        m_stSkillData.eID = data.eSkillID;
+        m_stSkillData.nDamage = data.nBaseDamage;
+        m_stSkillData.fDuration = 1.0f; // todo 테이블 매니져 곧 제작 할 예정
+        m_stSkillData.fSpeed = 3.0f;
+    }
+
 	void Update()
     {
         float moveX = 0;
@@ -60,5 +68,10 @@ public class PlayerController : MonoBehaviour
                 m_Camera.transform.position += move;
             }
         }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+		{
+            FVSSkillManager.Ins.ShootSkill(m_stSkillData);
+		}
     }
 }
