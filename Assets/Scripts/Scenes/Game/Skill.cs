@@ -1,7 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FVS.GameDefines;
+using FVS.InGameDefines;
 
 public class Skill : MonoBehaviour
 {

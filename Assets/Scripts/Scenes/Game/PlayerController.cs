@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 
 using FVS.Defines;
-using FVS.GameDefines;
+using FVS.InGameDefines;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
         m_stSkillData.eID = data.eSkillID;
         m_stSkillData.nDamage = data.nBaseDamage;
-        m_stSkillData.fDuration = 1.0f; // todo Å×ÀÌºí ¸Å´ÏÁ® °ğ Á¦ÀÛ ÇÒ ¿¹Á¤
+        m_stSkillData.fDuration = 1.0f; // todo í…Œì´ë¸” ë§¤ë‹ˆì ¸ ê³§ ì œì‘ í•  ì˜ˆì •
         m_stSkillData.fSpeed = 3.0f;
     }
 

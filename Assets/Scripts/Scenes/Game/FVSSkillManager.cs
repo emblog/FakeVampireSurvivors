@@ -1,11 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FVS.GameDefines;
+using FVS.InGameDefines;
 
 public class FVSSkillManager : MonoBehaviour
 {
-    // singleton // �ӽ�
+    // singleton // 임시
     static FVSSkillManager instance = null;
 
     static public FVSSkillManager Ins => instance;
@@ -23,7 +23,6 @@ public class FVSSkillManager : MonoBehaviour
 
     void ShootSkill(ref SkillData a_stData)
 	{
-        m_liActiveSkills.Add(new Skill(SkillData));
 
     }
 

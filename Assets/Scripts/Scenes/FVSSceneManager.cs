@@ -1,25 +1,43 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FVS.Defines;
-using FVS.GameDefines;
+using FVS.InGameDefines;
 
 public class FVSSceneManager : MonoBehaviour
 {
-	// singleton // ÀÓ½Ã
-    static FVSSceneManager instance = new FVSSceneManager();
+	#region SINGLETON
 
-    static public FVSSceneManager Ins => instance;
+	static FVSSceneManager _instance = null;
 
-	private FVSSceneManager() { }
+	public static FVSSceneManager Ins
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = FindObjectOfType(typeof(FVSSceneManager)) as FVSSceneManager;
 
-	IngameData m_passingData;
+				if (_instance == null)
+				{
+					_instance = new GameObject("FVSSceneManager", typeof(FVSSceneManager)).GetComponent<FVSSceneManager>();
+				}
+			}
+
+			return _instance;
+		}
+	}
 
 	void Awake()
 	{
 		DontDestroyOnLoad(this);
 	}
+
+	#endregion
+
+
+	IngameData m_passingData;
 
 	public void SetInGameData(ref PlayerData a_stPlayerData, ref EquipmentData a_stEquipmentData)
 	{
@@ -34,7 +52,7 @@ public class FVSSceneManager : MonoBehaviour
 		return m_passingData;
 	}
 
-	// Scene °ü¸®
+	// Scene ê´€ë¦¬
 	public void ChangeScene(EScene a_Scene)
 	{
 		SceneManager.LoadScene(a_Scene.ToString());

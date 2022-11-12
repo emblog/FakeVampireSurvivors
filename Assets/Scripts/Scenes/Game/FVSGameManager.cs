@@ -1,14 +1,13 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using FVS.Defines;
-using FVS.GameDefines;
+using FVS.InGameDefines;
 
 
 public class FVSGameManager : MonoBehaviour
 {
-    // singleton // ÀÓ½Ã
     static FVSGameManager instance = null;
 
     static public FVSGameManager Ins => instance;
@@ -20,12 +19,13 @@ public class FVSGameManager : MonoBehaviour
 
     void Awake()
     {
+		// ê²Œì„ì”¬ì´ ë¡œë”©ë˜ë©´, í•˜ì´ì–´ë¼í‚¤ì— ìˆê¸° ë•Œë¬¸ì— ê·¸ ë•Œ ì„¸íŒ…ë¨.
         instance = this;
 
         data = FVSSceneManager.Ins.GetInGameData();
 
-        // todo : ¾î´ÀÁ¤µµ ÀÛ¾÷ µÇ¸é »èÁ¦ ÇÊ¼ö
-        // °ÔÀÓ ¾À¿¡¼­ ¹Ù·Î ½ÃÀÛÇÒ ¶§ »ç¿ëÇÒ ´õ¹Ì µ¥ÀÌÅÍ
+        // todo : ì–´ëŠì •ë„ ì‘ì—… ë˜ë©´ ì‚­ì œ í•„ìˆ˜
+        // ê²Œì„ ì”¬ì—ì„œ ë°”ë¡œ ì‹œì‘í•  ë•Œ ì‚¬ìš©í•  ë”ë¯¸ ë°ì´í„°
         if (data.IsValid() == false)
 		{
             PlayerData temp;

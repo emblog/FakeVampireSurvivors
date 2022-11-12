@@ -1,10 +1,28 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FVS.Defines;
 
+// 임시로 최초 씬에 대한 책임을 전부 가짐
+
+
+// save데이터는 임시로 플레이어 프렙스에 저장할 예정
+// save데이터에 대한 모든 내용은 DataSaver를 통해 진행
+
 public class LobbyUI : MonoBehaviour
 {
+
+	private void Awake()
+	{
+		GameStart();
+	}
+
+	void GameStart()
+	{
+		
+	}
+
+
 	// EventHandler
 	public void OnClick_QuitButton()
 	{
@@ -17,19 +35,7 @@ public class LobbyUI : MonoBehaviour
 
 	public void OnClick_StartButton()
 	{
-		// todo : �ӽ� ������
-		PlayerData temp;
-
-		temp.Speed = 5;
-		temp.HP= 10;
-		temp.AttakSpeed = 1.5f;
-		temp.AttackDamage = 1;
 		
-		EquipmentData temp2;
-
-		temp2.eSkillID = ESkillID.Sword;
-		temp2.nBaseDamage = 1;
-
 		FVSSceneManager.Ins.SetInGameData(ref temp, ref temp2);
 		FVSSceneManager.Ins.ChangeScene(EScene.Game);
 	}
