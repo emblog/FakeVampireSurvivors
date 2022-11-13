@@ -32,9 +32,4 @@ public class Board : MonoBehaviour
             }
 		}
 	}
-
-	void Update()
-    {
-        
-    }
 }

@@ -5,10 +5,6 @@ using FVS.Defines;
 
 // 임시로 최초 씬에 대한 책임을 전부 가짐
 
-
-// save데이터는 임시로 플레이어 프렙스에 저장할 예정
-// save데이터에 대한 모든 내용은 DataSaver를 통해 진행
-
 public class LobbyUI : MonoBehaviour
 {
 
@@ -19,7 +15,7 @@ public class LobbyUI : MonoBehaviour
 
 	void GameStart()
 	{
-		
+		OutGameDataManager.Ins.LoadingSavedData();
 	}
 
 
@@ -35,8 +31,8 @@ public class LobbyUI : MonoBehaviour
 
 	public void OnClick_StartButton()
 	{
+		FVSSceneManager.Ins.SetInGameData();
 		
-		FVSSceneManager.Ins.SetInGameData(ref temp, ref temp2);
 		FVSSceneManager.Ins.ChangeScene(EScene.Game);
 	}
 

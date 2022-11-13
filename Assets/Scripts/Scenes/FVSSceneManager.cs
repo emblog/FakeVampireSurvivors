@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FVS.Defines;
-using FVS.InGameDefines;
+using FVS.GameDefines;
 
 public class FVSSceneManager : MonoBehaviour
 {
@@ -37,24 +37,28 @@ public class FVSSceneManager : MonoBehaviour
 	#endregion
 
 
-	IngameData m_passingData;
+	IngameDeliveryData m_stDeliveryData;
 
-	public void SetInGameData(ref PlayerData a_stPlayerData, ref EquipmentData a_stEquipmentData)
+	
+
+	public void SetDeliveryData_forIngame()
 	{
-		m_passingData.stPlayerData = a_stPlayerData;
-		m_passingData.stEquipmentData = a_stEquipmentData;
+		// stage 데이터
 
-		Debug.Assert(m_passingData.IsValid(), "not valid stage passing data");
+		m_stDeliveryData.Clear();
+
+		Debug.Assert(m_stDeliveryData.IsValid(), "not valid stage passing data");
 	}
 
-	public IngameData GetInGameData()
+	public IngameDeliveryData GetInGameDeliveryData()
 	{
-		return m_passingData;
+		return m_stDeliveryData;
 	}
 
 	// Scene 관리
 	public void ChangeScene(EScene a_Scene)
 	{
+
 		SceneManager.LoadScene(a_Scene.ToString());
 	}
 }

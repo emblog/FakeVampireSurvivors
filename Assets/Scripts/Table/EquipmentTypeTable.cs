@@ -7,8 +7,8 @@ public class EquipmentTypeTable : BaseTable<EquipmentTypeTable.Data>
 	public struct Data
 	{
 		public readonly int		nID;
-		public readonly string	sName;
-		public readonly string	sInfo;
+		public readonly int		snName;
+		public readonly int		snInfo;
 		public readonly string	sImageName;
 
 		public readonly int		nGradeMaxLevel_01;

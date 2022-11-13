@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FVS.InGameDefines;
+
+using FVS.GameDefines;
 
 public class Skill : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class Skill : MonoBehaviour
 
 	public float fNowDuration;
 	public float fNowSpeed;
-
 
 	public void SetSkillData(ref SkillData a_stData)
 	{
@@ -19,8 +19,8 @@ public class Skill : MonoBehaviour
 		fNowSpeed = a_stData.fSpeed;
 	}
 
-	void Tick(float DeltaTime)
+	public void SkillTick(float a_fDelta)
 	{
-
+		
 	}
 }

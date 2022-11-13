@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FVS.InGameDefines;
+using FVS.GameDefines;
 
-public class FVSSkillManager : MonoBehaviour
+public class FVSSkillManager : MonoBehaviour, ITick
 {
     // singleton // 임시
     static FVSSkillManager instance = null;
@@ -15,22 +15,21 @@ public class FVSSkillManager : MonoBehaviour
     List<Skill> m_liActiveSkills = new List<Skill>();
     List<Skill> m_liSkillPool = new List<Skill>();
 
-
     void Awake()
     {
         instance = this;
     }
 
-    void ShootSkill(ref SkillData a_stData)
-	{
-
+    void Start()
+    {
+        FVSGameManager.Ins.AddTickObject(this);
     }
 
-    private void Update()
+	public void Tick(float a_fDelta)
 	{
-		
+		foreach(var skill in m_liActiveSkills)
+		{
+            skill.SkillTick(a_fDelta);
+		}
 	}
-
 }
-
-

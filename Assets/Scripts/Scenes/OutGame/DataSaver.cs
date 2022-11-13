@@ -19,13 +19,13 @@ public class DataSaver : MonoBehaviour
 
 	class UserDBData
 	{
-		public long lUserUUID;
+		public long lUuid;
 
 		public int nLevel;
 		public int nNowExp;
 
-		public int nEolutionData;
-		public int nSpecialEvolutionData;
+		public int nEvolutionStep;
+		public int nSpecialEvolutionStep;
 
 		// 재화
 		public int nStamina;
@@ -35,36 +35,38 @@ public class DataSaver : MonoBehaviour
 		public int nGoldKey;
 	}
 
+	class User_DailyUpdateDBData
+	{
+		public List<int> liDuengeonKey;
+
+		public List<int> liShopFreeToken;
+		public List<int> liShopADToken;
+		public List<float> liShopADTerm;
+	}
+
 	class ShopDBData
 	{
 		// 현재 파는 상품에 대한 정보. 이거는 거의 구현 안될 수 있음
 		// 4주치까지의 목표는 무료 상품 + 광고 상품정도에 대한 구현
 	}
-
-	class ShopDailyDBData
-	{
-		// 광고 최대 볼 수 있는 횟수에대한 카운트
-		public List<int> nShopIndexADCount = new List<int>();
-
-		// 비슷하게, 클릭하면 받는 상품에 대한 카운팅도 관리 해야함. ( 기본적으로 1회 )
-	}
-
-	UserDBData				temp01 = new UserDBData();
+	
 	ShopDBData				temp02 = new ShopDBData();
-	ShopDailyDBData			temp03 = new ShopDailyDBData();
+	User_DailyUpdateDBData	temp03 = new User_DailyUpdateDBData();
 
+	UserDBData				m_cUser = new UserDBData();
 	List<EquipmentDBData>	m_liEquipment = new List<EquipmentDBData>();
 	List<long>				m_liEquipedList = new List<long>();
-
-	// 서버가 없다면, uuid를 스스로 발급해서 관리해야함
-	// public static long GetUUID()
-	// {
-	// 	return 0;
-	// }
 
 	public void LoadData()
 	{
 		// todo - 어딘가로부터 잘 로딩했다고 가정
+		UserDBData user = new UserDBData();
+		
+		user.nLevel = 1;
+		user.nNowExp = 0;
+		user.nEvolutionStep = 0;
+		user.nSpecialEvolutionStep = 0;
+
 		EquipmentDBData shuriken = new EquipmentDBData();
 
 		shuriken.lUuid = 10;
@@ -83,7 +85,7 @@ public class DataSaver : MonoBehaviour
 		m_liEquipedList.Add(11);
 	}
 
-	static EquipmentData CreateDataFromDBData(EquipmentDBData a_stData)
+	EquipmentData CreateDataFromDBData(EquipmentDBData a_stData)
 	{
 		EquipmentData data = new EquipmentData();
 
@@ -92,15 +94,48 @@ public class DataSaver : MonoBehaviour
 		data.eGrade = (EGrade)a_stData.nGrade;
 		data.nLevel = a_stData.nLevel;
 
-		Debug.Assert(data.eType.GetStatTable(a_stData.nGrade, a_stData.nLevel, out var statData), "stat setting error");
-		data.stStat = statData;
+		Debug.Assert(data.eType.TryGetStatTable(a_stData.nGrade, a_stData.nLevel, out var statData), "stat setting error");
 
+		data.stStat.Apply(ref statData);
 		return data;
+	}
+
+	public bool FillUserData(out UserData a_refUserData)
+	{
+		a_refUserData.lUuid = m_cUser.lUuid;
+		a_refUserData.stLevel = new UserLevelData();
+
+		a_refUserData.stLevel.nLevel				= m_cUser.nLevel;
+		a_refUserData.stLevel.nExp					= m_cUser.nNowExp;
+		a_refUserData.stLevel.nEvolutionStep		= m_cUser.nEvolutionStep;
+		a_refUserData.stLevel.nSpecialEvolutionStep	= m_cUser.nSpecialEvolutionStep;
+		a_refUserData.stLevel.stUserLevelStat.Clear();
+
+		Debug.Assert(EStatObtainSource.UserLevel.TryGetStatTable(a_refUserData.stLevel.nLevel, out var stat), "index error");
+		a_refUserData.stLevel.stUserLevelStat.Apply(ref stat);
+
+		a_refUserData.stLevel.stSpecialEvolutionStat.Clear();
+		a_refUserData.stLevel.stEvolutionStat.Clear();
+
+		a_refUserData.stGoods = new UserGoodsData();
+
+		a_refUserData.stGoods.nStamina	= m_cUser.nStamina;
+		a_refUserData.stGoods.nGem		= m_cUser.nGem;
+		a_refUserData.stGoods.nGold		= m_cUser.nGold;
+		a_refUserData.stGoods.nSiverKey	= m_cUser.nSiverKey;
+		a_refUserData.stGoods.nGoldKey	= m_cUser.nGoldKey;
+
+		return true;
 	}
 
 	public void FillEquipmentData(long[] a_arSlot, Dictionary<long, EquipmentData> a_map)
 	{
 		a_map.Clear();
+
+		for( int i=0 ;i<a_arSlot.Length; ++i )
+		{
+			a_arSlot[i] = 0;
+		}
 
 		foreach( var equip in m_liEquipment)
 		{
@@ -112,11 +147,11 @@ public class DataSaver : MonoBehaviour
 			{
 				if( uuid == equip.lUuid )
 				{
+					int n = data.eType.GetSlotIndex();
 
-					data.eType.GetSlotIndex();
+					Debug.Assert(a_arSlot[n] == 0, "received value error");
 
-
-
+					a_arSlot[n] = uuid;
 				}
 			}
 		}
