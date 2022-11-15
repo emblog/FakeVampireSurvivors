@@ -16,10 +16,19 @@ public class LobbyUI : MonoBehaviour
 	void GameStart()
 	{
 		OutGameDataManager.Ins.LoadingSavedData();
+
+		LoadingTable();
+	}
+
+	void LoadingTable()
+	{
+
+
 	}
 
 
 	// EventHandler
+
 	public void OnClick_QuitButton()
 	{
 		
@@ -51,4 +60,6 @@ public class LobbyUI : MonoBehaviour
 	public void OnClick_CreditsButton()
 	{
 	}
+
+	
 }

@@ -27,6 +27,10 @@ namespace FVS.GameDefines { } // todo : 사이즈 봐서 없앨수도 있음
 // 전역변수 g_
 // 로컬변수는 안붙임
 
+// 써드파티
+// LitJson - 커밋넘버 4df8ec7 - https://github.com/LitJSON/litjson
+// 
+
 namespace FVS.Defines
 {
 	static public class Path
